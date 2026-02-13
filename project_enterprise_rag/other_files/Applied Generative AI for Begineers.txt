@@ -1,0 +1,912 @@
+Applied
+Generative AI for
+Beginners
+
+ Practical Knowledge on Diffusion Models,
+ ChatGPT, and Other LLMs
+ —
+ Akshay Kulkarni
+ Adarsha Shivananda
+ Anoosh Kulkarni
+ Dilip Gudivada
+
+
+Apressᴿ
+
+---
+
+Applied Generative AI for
+Beginners
+Practical Knowledge on Diffusion
+Models‚ ChatGPT‚ and Other LLMs
+
+
+
+
+
+
+
+Akshay Kulkarni
+Adarsha Shivananda
+Anoosh Kulkarni
+Dilip Gudivada
+
+---
+
+Applied Generative AI for Beginners: Practical Knowledge on Diffusion Models‚
+ChatGPT‚ and Other LLMs
+
+Akshay Kulkarni                               Anoosh Kulkarni
+Bangalore, Karnataka, India                   Bangalore, Karnataka, India
+Adarsha Shivananda                            Dilip Gudivada
+Hosanagara, Karnataka, India                  Bangalore, India
+
+ISBN-13 (pbk): 978-1-4842-9993-7              ISBN-13 (electronic): 978-1-4842-9994-4
+https://doi.org/10.1007/978-1-4842-9994-4
+
+Copyright © 2023 by Akshay Kulkarni, Adarsha Shivananda, Anoosh Kulkarni,
+Dilip Gudivada
+This work is subject to copyright. All rights are reserved by the Publisher, whether the whole or part of the
+material is concerned, specifically the rights of translation, reprinting, reuse of illustrations, recitation,
+broadcasting, reproduction on microfilms or in any other physical way, and transmission or information
+storage and retrieval, electronic adaptation, computer software, or by similar or dissimilar methodology now
+known or hereafter developed.
+Trademarked names, logos, and images may appear in this book. Rather than use a trademark symbol with
+every occurrence of a trademarked name, logo, or image we use the names, logos, and images only in an
+editorial fashion and to the benefit of the trademark owner, with no intention of infringement of the
+trademark.
+The use in this publication of trade names, trademarks, service marks, and similar terms, even if they are not
+identified as such, is not to be taken as an expression of opinion as to whether or not they are subject to
+proprietary rights.
+While the advice and information in this book are believed to be true and accurate at the date of publication,
+neither the authors nor the editors nor the publisher can accept any legal responsibility for any errors or
+omissions that may be made. The publisher makes no warranty, express or implied, with respect to the
+material contained herein.
+ Managing Director, Apress Media LLC: Welmoed Spahr
+ Acquisitions Editor: Celestin Suresh John
+ Development Editor: Laura Berendson
+ Editorial Assistant: Gryffin Winkler
+Cover designed by eStudioCalamar
+Cover image designed by Scott Webb on unsplash
+Distributed to the book trade worldwide by Springer Science+Business Media New York, 1 New York Plaza,
+Suite 4600, New York, NY 10004-1562, USA. Phone 1-800-SPRINGER, fax (201) 348-4505, e-mail orders-ny@
+springer-sbm.com, or visit www.springeronline.com. Apress Media, LLC is a California LLC and the sole
+member (owner) is Springer Science + Business Media Finance Inc (SSBM Finance Inc). SSBM Finance Inc
+is a Delaware corporation.
+For information on translations, please e-mail booktranslations@springernature.com; for reprint,
+paperback, or audio rights, please e-mail bookpermissions@springernature.com.
+Apress titles may be purchased in bulk for academic, corporate, or promotional use. eBook versions and
+licenses are also available for most titles. For more information, reference our Print and eBook Bulk Sales
+web page at http://www.apress.com/bulk-sales.
+Any source code or other supplementary material referenced by the author in this book is available to
+readers on GitHub. For more detailed information, please visit https://www.apress.com/gp/services/
+source-code.
+Paper in this product is recyclable
+
+---
+
+To our families
+
+---
+
+Table of Contents
+
+
+About the Authors.................................................................................................... xi
+
+About the TechnicaI Reviewer ............................................................................... xiii
+
+Introduction .............................................................................................................xv
+
+Chapter 1: Introduction to Generative AI .................................................................. 1
+ So‚ What Is Generative AI?............................................................................................................ 2
+ Components of AI.......................................................................................................................... 3
+ Domains of Generative AI.............................................................................................................. 4
+  Text Generation........................................................................................................................ 4
+  Image Generation .................................................................................................................... 4
+  Audio Generation ..................................................................................................................... 5
+  Video Generation ..................................................................................................................... 5
+  Generative AI: Current Players and Their Models..................................................................... 9
+  Generative AI Applications..................................................................................................... 11
+ Conclusion .................................................................................................................................. 13
+
+Chapter 2: EvoIution of NeuraI Networks to Large Language ModeIs .................... 15
+ Natural Language Processing ..................................................................................................... 16
+  Tokenization .......................................................................................................................... 17
+  N-grams ................................................................................................................................ 17
+  Language Representation and Embeddings.......................................................................... 19
+ Probabilistic Models.................................................................................................................... 20
+ Neural Network–Based Language Models.................................................................................. 21
+  Recurrent Neural Networks (RNNs) ....................................................................................... 22
+  Long Short-Term Memory (LSTM) ......................................................................................... 23
+  Gated Recurrent Unit (GRU) ................................................................................................... 24
+  Encoder-Decoder Networks................................................................................................... 25
+
+  v
+
+---
+
+TABLE OF CONTENTS
+
+ Transformer................................................................................................................................. 27
+              Large Language Models (LLMs) .................................................................................................. 29
+Conclusion .................................................................................................................................. 30
+
+Chapter 3: LLMs and Transformers......................................................................... 33
+               The Power of Language Models.................................................................................................. 33
+        Transformer Architecture ............................................................................................................ 34
+              Motivation for Transformer .................................................................................................... 35
+      Architecture........................................................................................................................... 35
+                  Encoder-Decoder Architecture............................................................................................... 36
+   Attention ................................................................................................................................ 39
+                        Position-wise Feed-Forward Networks ................................................................................. 47
+                                 Advantages and Limitations of Transformer Architecture...................................................... 51
+Conclusion .................................................................................................................................. 53
+
+Chapter 4: The ChatGPT Architecture: An In-Depth ExpIoration of OpenAI’s
+  ConversationaI Language ModeI ........................................................... 55
+           The Evolution of GPT Models....................................................................................................... 56
+                 The Transformer Architecture: A Recap....................................................................................... 57
+        Architecture of ChatGPT.............................................................................................................. 59
+                 Pre-training and Fine-Tuning in ChatGPT .................................................................................... 70
+                        Pre-training: Learning Language Patterns............................................................................. 70
+                      Fine-Tuning: Adapting to Specific Tasks................................................................................ 71
+                             Continuous Learning and Iterative Improvement .................................................................. 71
+                 Contextual Embeddings in ChatGPT............................................................................................ 71
+               Response Generation in ChatGPT................................................................................................ 72
+                    Handling Biases and Ethical Considerations............................................................................... 73
+                        Addressing Biases in Language Models ................................................................................ 73
+                  OpenAI’s Efforts to Mitigate Biases ....................................................................................... 73
+        Strengths and Limitations ........................................................................................................... 75
+            Strengths of ChatGPT ............................................................................................................ 75
+            Limitations of ChatGPT .......................................................................................................... 76
+Conclusion .................................................................................................................................. 77
+vi
+
+---
+
+ TABLE OF CONTENTS
+
+Chapter 5: GoogIe Bard and Beyond ....................................................................... 79
+             The Transformer Architecture ..................................................................................................... 80
+                         Elevating Transformer: The Genius of Google Bard ..................................................................... 80
+                       Google Bard’s Text and Code Fusion...................................................................................... 82
+                       Strengths and Weaknesses of Google Bard ................................................................................ 83
+      Strengths ............................................................................................................................... 83
+          Weaknesses .......................................................................................................................... 84
+                          Difference Between ChatGPT and Google Bard........................................................................... 84
+Claude 2 ...................................................................................................................................... 86
+                Key Features of Claude 2....................................................................................................... 86
+                          Comparing Claude 2 to Other AI Chatbots ............................................................................. 87
+                                  The Human-Centered Design Philosophy of Claude .............................................................. 88
+                             Exploring Claude’s AI Conversation Proficiencies.................................................................. 89
+         Constitutional AI..................................................................................................................... 89
+             Claude 2 vs. GPT 3.5.............................................................................................................. 92
+                Other Large Language Models.................................................................................................... 93
+      Falcon AI................................................................................................................................ 93
+       LLaMa 2................................................................................................................................. 95
+    Dolly 2.................................................................................................................................... 98
+  Conclusion .................................................................................................................................. 99
+
+Chapter 6: ImpIement LLMs Using SkIearn .......................................................... 101
+Install Scikit-LLM and Setup..................................................................................................... 102
+ Obtain an OpenAI API Key.................................................................................................... 103
+Zero-Shot GPTClassifier ............................................................................................................ 103
+ What If You Find Yourself Without Labeled Data? ................................................................ 109
+Multilabel Zero-Shot Text Classification.................................................................................... 111
+ Implementation ................................................................................................................... 111
+ What If You Find Yourself Without Labeled Data? ................................................................ 112
+ Implementation ................................................................................................................... 112
+
+
+
+vii
+
+---
+
+    TABLE OF CONTENTS
+
+    Text Vectorization...................................................................................................................... 113
+          Implementation ................................................................................................................... 113
+       Text Summarization .................................................................................................................. 114
+          Implementation ................................................................................................................... 115
+ Conclusion ................................................................................................................................ 115
+
+                                          Chapter 7: LLMs for Enterprise and LLMOps ........................................................ 117
+           Private Generalized LLM API ..................................................................................................... 118
+                                  Design Strategy to Enable LLMs for Enterprise: In-Context Learning ....................................... 119
+                     Data Preprocessing/Embedding .......................................................................................... 121
+                  Prompt Construction/Retrieval ............................................................................................ 123
+ Fine-Tuning ............................................................................................................................... 126
+      Technology Stack...................................................................................................................... 128
+            Gen AI/LLM Testbed ............................................................................................................. 128
+        Data Sources ....................................................................................................................... 129
+          Data Processing................................................................................................................... 129
+                            Leveraging Embeddings for Enterprise LLMs ...................................................................... 130
+                                            Vector Databases: Accelerating Enterprise LLMs with Semantic Search ............................ 130
+                                    LLM APIs: Empowering Enterprise Language Capabilities .................................................. 130
+LLMOps ..................................................................................................................................... 131
+            What Is LLMOps?................................................................................................................. 131
+           Why LLMOps?...................................................................................................................... 133
+                   What Is an LLMOps Platform? ............................................................................................. 134
+                        Technology Components LLMOps........................................................................................ 135
+                    Monitoring Generative AI Models......................................................................................... 136
+                   Proprietary Generative AI Models ........................................................................................ 139
+                               Open Source Models with Permissive Licenses.................................................................. 140
+                   Playground for Model Selection .......................................................................................... 141
+           Evaluation Metrics............................................................................................................... 141
+              Validating LLM Outputs........................................................................................................ 144
+                           Challenges Faced When Deploying LLMs ............................................................................ 146
+
+
+    viii
+
+---
+
+    TABLE OF CONTENTS
+
+   Implementation ......................................................................................................................... 148
+                   Using the OpenAI API with Python ....................................................................................... 148
+                    Leveraging Azure OpenAI Service........................................................................................ 153
+Conclusion ................................................................................................................................ 153
+
+                                                Chapter 8: Diffusion ModeI and Generative AI for Images.................................... 155
+            Variational Autoencoders (VAEs) ............................................................................................... 156
+                  Generative Adversarial Networks (GANs) .................................................................................. 157
+   Diffusion Models ....................................................................................................................... 158
+              Types of Diffusion Models ................................................................................................... 160
+      Architecture......................................................................................................................... 162
+               The Technology Behind DALL-E 2.............................................................................................. 165
+                Top Part: CLIP Training Process ........................................................................................... 167
+                            Bottom Part: Text-to-Image Generation Process ................................................................. 168
+                  The Technology Behind Stable Diffusion................................................................................... 168
+                Latent Diffusion Model (LDM) .............................................................................................. 169
+              Benefits and Significance.................................................................................................... 170
+                The Technology Behind Midjourney .......................................................................................... 170
+                        Generative Adversarial Networks (GANs)............................................................................. 170
+                     Text-to-Image Synthesis with GANs .................................................................................... 171
+          Conditional GANs................................................................................................................. 171
+        Training Process .................................................................................................................. 171
+                   Loss Functions and Optimization......................................................................................... 171
+              Attention Mechanisms......................................................................................................... 172
+                        Data Augmentation and Preprocessing ............................................................................... 172
+              Benefits and Applications.................................................................................................... 172
+                                   Comparison Between DALL-E 2‚ Stable Diffusion‚ and Midjourney .......................................... 172
+Applications .............................................................................................................................. 174
+Conclusion ................................................................................................................................ 176
+
+
+
+
+
+    ix
+
+---
+
+    TABLE OF CONTENTS
+
+                                 Chapter 9: ChatGPT Use Cases.............................................................................. 179
+              Business and Customer Service ............................................................................................... 179
+             Content Creation and Marketing ............................................................................................... 181
+                    Software Development and Tech Support ................................................................................. 183
+       Data Entry and Analysis ............................................................................................................ 185
+                Healthcare and Medical Information......................................................................................... 187
+             Market Research and Analysis.................................................................................................. 189
+           Creative Writing and Storytelling .............................................................................................. 191
+        Education and Learning ............................................................................................................ 193
+        Legal and Compliance............................................................................................................... 194
+       HR and Recruitment.................................................................................................................. 196
+              Personal Assistant and Productivity.......................................................................................... 198
+Examples................................................................................................................................... 200
+Conclusion ................................................................................................................................ 205
+
+                Index ..................................................................................................................... 207
+
+
+
+
+
+
+
+
+
+
+    x
+
+---
+
+About the Authors
+
+
+                      Akshay Kulkarni is an AI and machine learning evangelist
+                      and IT leader. He has assisted numerous Fortune 500 and
+                      global firms in advancing strategic transformations using
+                      AI and data science. He is a Google Developer Expert,
+                      author, and regular speaker at major AI and data science
+                      conferences (including Strata, O’Reilly AI Conf, and GIDS).
+                      He is also a visiting faculty member for some of the top
+                      graduate institutes in India. In 2019, he was featured as one
+                      of the top 40 under-40 data scientists in India. He enjoys
+                      reading, writing, coding, and building next-gen AI products.
+
+                      Adarsha Shivananda is a data science and generative AI
+                      leader. Presently, he is focused on creating world-class
+                      MLOps and LLMOps capabilities to ensure continuous value
+                      delivery using AI. He aims to build a pool of exceptional
+                      data scientists within and outside the organization to solve
+                      problems through training programs and always wants
+                      to stay ahead of the curve. He has worked in the pharma,
+                      healthcare, CPG, retail, and marketing industries. He lives in
+                      Bangalore and loves to read and teach data science.
+
+                      Anoosh Kulkarni is a data scientist and MLOps engineer. He
+                      has worked with various global enterprises across multiple
+                      domains solving their business problems using machine
+                      learning and AI. He has worked at one of the leading
+                      ecommerce giants in UAE, where he focused on building
+                      state-of-the-art recommender systems and deep learning–
+                      based search engines. He is passionate about guiding and
+                      mentoring people in their data science journey. He often
+leads data science/machine learning meetups, helping aspiring data scientists carve
+their career road map.
+                                                                                    xi
+
+---
+
+ABOuT ThE AuThOrS
+
+                 Dilip Gudivada is a seasoned senior data architect with
+                 13 years of experience in cloud services, big data, and data
+                 engineering. Dilip has a strong background in designing and
+                 developing ETL solutions, focusing specifically on building
+                 robust data lakes on the Azure cloud platform. Leveraging
+                 technologies such as Azure Databricks, Data Factory, Data
+                 Lake Storage, PySpark, Synapse, and Log Analytics, Dilip
+                 has helped organizations establish scalable and efficient
+                 data lake solutions on Azure. He has a deep understanding
+                 of cloud services and a track record of delivering successful
+                 data engineering projects.
+
+
+
+
+
+
+
+
+
+
+xii
+
+---
+
+About the Technical Reviewer
+
+
+Prajwal is a lead applied scientist and consultant in the
+field of generative AI. He is passionate about building AI
+applications in the service of humanity.
+
+
+
+
+
+
+
+
+
+
+xiii
+
+---
+
+Introduction
+
+
+Welcome to Applied Generative AI for Beginners: Practical Knowledge on Diffusion
+Models, ChatGPT, and Other LLMs. Within these pages, you're about to embark on an
+exhilarating journey into the world of generative artificial intelligence (AI). This book
+serves as a comprehensive guide that not only unveils the intricacies of generative AI but
+also equips you with the knowledge and skills to implement it.
+In recent years, generative AI has emerged as a powerhouse of innovation, reshaping
+the technological landscape and redefining the boundaries of what machines can
+achieve. At its core, generative AI empowers artificial systems to understand and
+generate human language with remarkable fluency and creativity. As we delve deep
+into this captivating landscape, you'll gain both a theoretical foundation and practical
+insights into this cutting-edge field.
+
+
+What You Will Discover
+
+Throughout the chapters of this book, you will
+ •     Build Strong Foundations: Develop a solid understanding of the core
+       principles that drive generative AI's capabilities, enabling you to
+       grasp its inner workings.
+
+ •     Explore Cutting-Edge Architectures: Examine the architecture of
+       large language models (LLMs) and transformers, including renowned
+       models like ChatGPT and Google Bard, to understand how these
+       models have revolutionized AI.
+ •     Master Practical Implementations: Acquire hands-on skills for
+       integrating generative AI into your projects, with a focus on
+       enterprise-grade solutions and fine-tuning techniques that enable
+       you to tailor AI to your specific needs.
+
+
+
+
+xv
+
+---
+
+INTrOduCTION
+
+•     Operate with Excellence: Discover LLMOps, the operational
+      backbone of managing generative AI models, ensuring efficiency,
+      reliability, and security in your AI deployments.
+•     Witness Real-World Use Cases: Explore how generative AI is
+      revolutionizing diverse domains, from business and healthcare to
+      creative writing and legal compliance, through a rich tapestry of real-
+      world use cases.
+
+
+
+
+
+
+
+
+
+
+xvi
+
+---
+
+CHAPTER 1
+
+
+
+Introduction to Generative AI
+
+
+Have you ever imagined that simply by picturing something and typing, an image or
+video could be generated? How fascinating is that? This concept, once relegated to
+the realm of science fiction, has become a tangible reality in our modern world. The
+idea that our thoughts and words can be transformed into visual content is not only
+captivating but a testament to human innovation and creativity.
+
+
+
+
+
+
+
+
+
+
+Figure 1-1. The machine-generated image based on text input
+
+Even as data scientists, many of us never anticipated that AI could reach a point
+where it could generate text for a specific use case. The struggles we faced in writing
+code or the countless hours spent searching on Google for the right solution were once
+common challenges. Yet, the technological landscape has shifted dramatically, and
+those laborious tasks have become relics of the past.
+
+
+© Akshay Kulkarni, Adarsha Shivananda, Anoosh Kulkarni, Dilip Gudivada 2023                         1
+A. Kulkarni et al., Applied Generative AI for Beginners, https://doi.org/10.1007/978-1-4842-9994-4_1
+
+---
+
+CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+How has this become possible? The answer lies in the groundbreaking
+advancements in deep learning and natural language processing (NLP). These
+technological leaps have paved the way for generative AI, a field that harnesses the
+power of algorithms to translate thoughts into visual representations or automates the
+creation of complex code. Thanks to these developments, we’re now experiencing a
+future where imagination and innovation intertwine, transforming the once-unthinkable
+into everyday reality.
+
+
+So, What Is Generative AI?
+
+Generative AI refers to a branch of artificial intelligence that focuses on creating models
+and algorithms capable of generating new, original content, such as images, text, music,
+and even videos. Unlike traditional AI models that are trained to perform specific tasks,
+generative AI models aim to learn and mimic patterns from existing data to generate
+new, unique outputs.
+Generative AI has a wide range of applications. For instance, in computer
+vision, generative models can generate realistic images, create variations of existing
+images, or even complete missing parts of an image. In natural language processing,
+generative models can be used for language translation, text synthesis, or even to create
+conversational agents that produce humanlike responses. Beyond these examples,
+generative ai can perform art generation, data augmentation, and even generating
+synthetic medical images for research and diagnosis. It’s a powerful and creative tool
+that allows us to explore the boundaries of what’s possible in computer vision.
+However, it’s worth noting that generative AI also raises ethical concerns. The ability
+to generate realistic and convincing fake content can be misused for malicious purposes,
+such as creating deepfakes or spreading disinformation. As a result, there is ongoing
+research and development of techniques to detect and mitigate the potential negative
+impacts of generative AI.
+Overall, generative AI holds great promise for various creative, practical applications
+and for generating new and unique content. It continues to be an active area of research
+and development, pushing the boundaries of what machines can create and augmenting
+human creativity in new and exciting ways.
+
+
+
+
+
+2
+
+---
+
+                                   CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+Components  of AI
+
+•     Artificial Intelligence (AI): It is the broader discipline of machine
+      learning to perform tasks that would typically require human
+      intelligence.
+•     Machine Learning (ML): A subset of AI, ML involves algorithms
+      that allow computers to learn from data rather than being explicitly
+      programmed to do so.
+•     Deep Learning (DL): A specialized subset of ML, deep learning
+      involves neural networks with three or more layers that can analyze
+      various factors of a dataset.
+•     Generative AI: An advanced subset of AI and DL, generative AI
+      focuses on creating new and unique outputs. It goes beyond the
+      scope of simply analyzing data to making new creations based on
+      learned patterns.
+Figure 1-2 explains how generative AI is a component of AI.
+
+
+
+Artificial Intelligence
+
+
+Machine Learning
+
+
+
+Deep
+Learning
+
+
+
+
+Generative Al
+
+
+
+Figure 1-2. AI and its components
+
+                                 3
+
+---
+
+CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+Domains of Generative AI
+
+Let’s deep dive into domains of generative AI in detail, including what it is, how it works,
+and some practical applications.
+
+Text  Generation
+
+ •          What It Is: Text generation involves using AI models to create
+            humanlike text based on input prompts.
+ •          How It Works: Models like GPT-3 use Transformer architectures.
+            They’re pre-trained on vast text datasets to learn grammar, context,
+            and semantics. Given a prompt, they predict the next word or phrase
+            based on patterns they’ve learned.
+ •          Applications: Text generation is applied in content creation, chatbots,
+            and code generation. Businesses can use it for crafting blog posts,
+            automating customer support responses, and even generating code
+            snippets. Strategic thinkers can harness it to quickly draft marketing
+            copy or create personalized messages for customers.
+
+Image  Generation
+
+ •          What It Is: Image generation involves using various deep learning
+            models to create images that look real.
+ •          How It Works: GANs consist of a generator (creates images) and a
+            discriminator (determines real vs. fake). They compete in a feedback
+            loop, with the generator getting better at producing images that the
+            discriminator can’t distinguish from real ones.
+ •          Applications: These models are used in art, design, and product
+            visualization. Businesses can generate product mock-ups for
+            advertising, create unique artwork for branding, or even generate
+            faces for diverse marketing materials.
+
+
+
+
+
+
+4
+
+---
+
+                                              CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+Audio  Generation
+
+ •     What It Is: Audio generation involves AI creating music, sounds, or
+       even humanlike voices.
+ •     How It Works: Models like WaveGAN analyze and mimic audio
+       waveforms. Text-to-speech models like Tacotron 2 use input text
+       to generate speech. They’re trained on large datasets to capture
+       nuances of sound.
+ •     Applications: AI-generated music can be used in ads, videos, or
+       as background tracks. Brands can create catchy jingles or custom
+       sound effects for marketing campaigns. Text-to-speech technology
+       can automate voiceovers for ads or customer service interactions.
+       Strategically, businesses can use AI-generated audio to enhance
+       brand recognition and storytelling.
+
+Video  Generation
+
+ •     What It Is: Video generation involves AI creating videos, often by
+       combining existing visuals or completing missing parts.
+ •     How It Works: Video generation is complex due to the temporal
+       nature of videos. Some models use text descriptions to generate
+       scenes, while others predict missing frames in videos.
+ •     Applications: AI-generated videos can be used in personalized
+       messages, dynamic ads, or even content marketing. Brands can craft
+       unique video advertisements tailored to specific customer segments.
+       Thoughtful application can lead to efficient video content creation
+       that adapts to marketing trends.
+
+Generating  Images
+
+Microsoft Bing Image Creator is a generative AI tool that uses artificial intelligence to
+create images based on your text descriptions.
+www.bing.com/images/create/
+
+
+
+5
+
+---
+
+CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+To use Bing Image Creator, you simply type a description of the image you want to
+create into the text box. We will use the same example mentioned earlier in generating
+realistic images. “Create an image of a pink elephant wearing a party hat and
+standing on a rainbow.” Bing Image Creator will then generate an image based on your
+description.
+Figure 1-3 shows the Microsoft Bing output.
+
+Microsoft Bing Q Image Creator  PREVIEW
+                 powered by DALL-E
+
+create an image of a pink elephant wearing a party hat and standing on a rainbow.    99
+
+Explore ideas  Creations
+
+
+
+
+
+
+
+
+
+
+Created with Al
+
+Figure 1-3.    Microsoft Bing output
+
+
+Generating  Text
+
+Let’s use ChatGPT for generating text. It is a large language model–based chatbot
+developed by OpenAI and launched in November 2022.
+ ChatGPT is trained with reinforcement learning through human feedback and
+reward models that rank the best responses. This feedback helps augment ChatGPT with
+machine learning to improve future responses.
+ ChatGPT can be used for a variety of purposes, including
+ •     Having conversations with users
+ •     Answering questions
+ •     Generating text
+
+6
+
+---
+
+                                 CHAPTER 1        INTRODUCTION TO GENERATIVE AI
+
+ •     Translating languages
+
+ •     Writing different kinds of creative content
+
+ChatGPT can be accessed online at
+https://openai.com/blog/chatgpt
+To use ChatGPT, you simply type a description you want into the text box.
+To create content on our solar system. Figure 1-4 shows the ChatGPT’s output.
+
+       create a content on solar system
+
+
+S The Wonders of Our Solar System: A Journey Through Space
+            The Solar System, a captivating cosmic dance of planets, moons, asteroids, and comets, is a
+            majestic spectacle in the vast expanse of space. Our home planet, Earth, is just one of the
+            many celestial bodies that make up this extraordinary cosmic neighborhood, So, let's
+            embark on a journey through the wonders of our Solar System and explore the secrets it
+            holds!
+
+            1. The Sun - Our Life-Giving Star:
+            At the heart of the Solar System shines the Sun, a brilliant ball of hot gas that provides light
+            and warmth to all the planets. Its colossal energy sustains life on Earth and fuels the intricate
+            dance of celestial bodies around it. The Sun's fiery surface is a mesmerizing dance of solar
+            flares and sunspots, revealing its ever-changing nature.
+
+2. Mercury - The Swiftest Planet:
+ Moving closer to the Sun, we encounter Mercury, the closest planet to our star. This rocky
+desolate world is a scorching hellscape during the day and a freezing tundra at night. It
+speeds around the Sun, completing an orbit in just 88 Earth days, making it the swiftest
+planet in the Solar System.
+
+3. Venus - The Enigmatic Beauty:
+ Next, we encounter Venus, often called Earth's sister planet due to its similar size and
+ composition. However, its atmosphere is a toxic mix of sulfuric acid and suffocating carbon
+ dioxide, creating a runaway greenhouse effect. Venus boasts a thick layer of clouds that veils
+ its surface, making it one of the most enigmatic and mysterious planets in our Solar System.
+
+4. Earth - Our Blue Marble:
+Our home planet, Earth, stands out as a vibrant oasis in the darkness of space. The only
+ known planet to support life, Earth is adorned with lush forests, vast oceans, and a diverse
+array of life forms. Its intricate climate systems and ecosystems make it a haven for living
+beings to thrive.
+
+Figure 1-4. ChatGPT’s output
+
+
+7
+
+---
+
+CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+            5. Mars - The Red Planet:
+  Moving outward, we encounter the captivating Mars, a rust-colored world with a thin
+            atmosphere. Mars has long been the focus of scientific exploration, with its dusty plains,
+            towering volcanoes, and the possibility of ancient water channels hinting at past signs of life.
+
+            6.Jupiter  The Giant Among Giants:
+  Entering the realm of the gas giants, we meet Jupiter, the largest planet in the Solar System.
+            Its mesmerizing bands of clouds, raging storms (like the iconic Great Red Spot), and
+  numerous moons, including the four Galilean moons, make it a celestial wonder to behold.
+
+  7. Saturn - The Ringed Beauty:
+            Saturn's majestic rings, made of icy particles, are an awe-inspiring sight. This gas giant's
+            golden hue and graceful ring system make it a true wonder of the Solar System. Its moon
+            Titan, with its dense atmosphere and liquid methane lakes, remains one of the most Earth-
+            like worlds beyond our home planet.
+            8. Uranus and Neptune - The Ice Giants:
+  The final two gas giants, Uranus and Neptune, are known as the ice giants due to their
+            significant icy and rocky components. Neptune's vibrant blue color and its intriguing moon
+            Triton, with geysers erupting from its surface, add to the allure of these distant worlds.
+
+            9. Pluto and the Kuiper Belt:
+            As we venture beyond Neptune, we reach the icy realm of the Kuiper Belt, home to countless
+            icy bodies and dwarf planets. Among them is Pluto, once considered the ninth planet, now
+            reclassified as a dwarf planet. Pluto's fascinating system of moons and icy plains make it a
+            captivating world in its own right.
+
+  10. Moons, Comets, and Asteroids:
+            Throughout our journey, we encounter a myriad of moons, comets, and asteroids. From
+  Jupiter's moon Europa, with its subsurface ocean, to the icy geysers of Enceladus around
+            Saturn, and the awe-inspiring comets that streak through the sky, these celestial
+            companions add richness to the tapestry of the Solar System.
+
+ The Solar System, with its diverse and captivating array of celestial bodies, continues to
+ inspire exploration and discovery. As we learn more about our cosmic neighborhood, the
+ wonders of the Solar System remind us of the vastness and beauty of the universe,
+ beckoning us to continue our exploration beyond the stars.
+
+Figure 1-4.   (continued)
+
+ChatGPT or any other tools are still under development, but it has learned to
+perform many kinds of tasks. As it continues to learn, it will become even more powerful
+and versatile.
+
+
+
+
+8
+
+---
+
+CHAPTER 1   INTRODUCTION TO GENERATIVE AI
+
+Generative AI: Current Players and Their Models
+
+Generative AI is a rapidly growing field with the potential to revolutionize many
+industries. Figure 1-5 shows some of the current players in the generative AI space.
+
+
+Use Case Vertical Ecosystem
+         ChatGPT    synthesia  BLM *WolframAlpha                            Pretrained Language Models
+
+GitHub Copilot      DALL·E 2   Midjourney  Jasper  COMPOSE AI
+
+wordtune            M        cogram        CONTENDA  codeium               Image Generation
+                    MOONBEAM
+
+         AVENDER    QuillBot   Character.Al MUTABLEAI  artbreeder    >     Video Generation
+
+@GenShare           R runway   Hour         LAIKA      Mintlify
+                               One
+           Perplexity       tabnine stability.ai                     <>     Code Generation
+
+Base / Foundational Model Contenders                                        Audio Generation
+ANTHROPIC           GOpenAI    DeepMind             Hugging Face
+
+Figure 1-5.         ChatGPT’s output
+
+Briefly let’s discuss few of them:
+
+•     OpenAI: OpenAI is a generative AI research company that was
+      founded by Elon Musk, Sam Altman, and others. OpenAI has
+      developed some of the most advanced generative AI models in the
+      world, including GPT-4 and DALL-E 2.
+
+      •             GPT-4: GPT-4 is a large language model that can generate text,
+                    translate languages, write different kinds of creative content, and
+                    answer your questions in an informative way.
+
+      •             DALL-E 2: DALL-E 2 is a generative AI model that can create
+                    realistic images from text descriptions.
+
+•     DeepMind: DeepMind is a British artificial intelligence company that
+      was acquired by Google in 2014. DeepMind has developed several
+      generative AI models, including AlphaFold, which can predict the
+      structure of proteins, and Gato, which can perform a variety of tasks,
+      including playing Atari games, controlling robotic arms, and writing
+      different kinds of creative content.
+                                                                                                      9
+
+---
+
+CHAPTER 1        INTRODUCTION TO GENERATIVE AI
+
+ •          Anthropic: Anthropic is a company that is developing generative
+            AI models for use in a variety of industries, including healthcare,
+            finance, and manufacturing. Anthropic’s models are trained on
+            massive datasets of real-world data, which allows them to generate
+            realistic and accurate outputs.
+ •          Synthesia: Synthesia is a company that specializes in creating realistic
+            synthetic media, such as videos and audio recordings. Synthesia’s
+            technology can be used to create avatars that can speak, gesture, and
+            even lip-sync to any audio input.
+            •     RealSpeaker: RealSpeaker is a generative AI model that can be
+                  used to create realistic synthetic voices.
+            •     Natural Video: Natural Video is a generative AI model that can be
+                  used to create realistic synthetic videos.
+•           RunwayML: RunwayML is a platform that makes it easy for
+            businesses to build and deploy generative AI models. RunwayML
+            provides a variety of tools and resources to help businesses collect
+            data, train models, and evaluate results.
+            •     Runway Studio: Runway Studio is a cloud-based platform that
+                  allows businesses to build and deploy generative AI models
+                  without any coding experience.
+            •     Runway API: The Runway API is a set of APIs that allow
+                  businesses to integrate generative AI into their applications.
+•           Midjourney: Midjourney is a generative AI model that can be used
+            to create realistic images, videos, and text. Midjourney is still under
+            development, but it has already been used to create some impressive
+            results.
+These are just a few of the many companies that are working on generative AI. As the
+field continues to develop, we can expect to see even more innovation and disruption in
+the years to come.
+
+
+
+
+
+
+10

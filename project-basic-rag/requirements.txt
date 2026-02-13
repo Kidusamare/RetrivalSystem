@@ -1,0 +1,9 @@
+gradio==4.29.0
+gradio_client==0.16.1
+transformers==4.37.2
+llama-index==0.10.40
+llama-index-embeddings-huggingface
+huggingface-hub==0.22.2
+torch
+uvicorn
+fastapi

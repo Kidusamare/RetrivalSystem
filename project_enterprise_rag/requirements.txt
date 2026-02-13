@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+gradio
+sentence-transformers
+scikit-learn
+numpy
+python-dotenv
+groq
+llama-index==0.10.40
+llama-index-embeddings-huggingface

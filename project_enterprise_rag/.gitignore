@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+venv/
+.env.local
+
+# data / generated
+*.db
+.vector_index/
+index.json
+
+# VSCode
+.vscode/
+
+# system files
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+
+# docker
+*.tar
