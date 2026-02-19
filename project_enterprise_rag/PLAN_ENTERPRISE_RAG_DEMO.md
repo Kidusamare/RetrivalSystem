@@ -171,3 +171,135 @@ project_enterprise_rag/
 1. Phase 0 and Phase 1 first (local-only + multi-file foundation).
 2. Phase 2 and Phase 3 next (editable query + chunk UX).
 3. Phase 4 and Phase 5 last (filter polish + hardening).
+
+---
+
+## Revision Plan (Search-First + Analyst UX)
+
+### Confirmed Interaction Decisions
+- Default retrieval mode: `hybrid`.
+- Keep `Generate Query Plan` visible.
+- Results per page default: `10`.
+- Pagination enabled.
+- Sorting: relevance, source file, date.
+- Facets: curated filters + source file + doc_id.
+- Facet click behavior: auto-run search and append selected facet token to planned query.
+- Results: snippet-first with expand/collapse full chunk.
+- API: preserve compatibility; add fields without breaking existing keys.
+- UX style: search + analyst.
+
+### Backend Revision Scope
+
+| File | Planned Function Additions/Changes | Why |
+|---|---|---|
+| `config/settings.py` | Add defaults: `default_mode`, `default_page_size`, `max_page_size`, `supported_sorts` | Centralized search behavior config.
+| `retrieval/query_planner.py` | Add `plan_query_mode(user_query, mode, planner_backend, constraints)`; add support for include/exclude term groups | Conditional and editable smarter query planning.
+| `retrieval/retriever.py` | Add `search_chunks(...)` with `mode`, `sort_by`, `page`, `page_size`; return score components | Search-engine-style ranking and pagination.
+| `retrieval/retriever.py` | Add hybrid score fusion function (`semantic_score` + `keyword_overlap`) | Implement default hybrid ranking.
+| `retrieval/filter_suggester.py` | Add facet counter outputs: `source_file`, `doc_id`, term facets | Analyst-style faceted narrowing.
+| `retrieval/formatter.py` | Add snippet builder + expand payload fields | Compact result cards with expand-on-demand.
+| `services/rag_service.py` | Expand `search_chunks_service` schema to include `pagination`, `sort`, `mode`, `facets`, `score_breakdown` | One service contract for UI/API.
+| `api/routes_query.py` | Extend request model with optional fields: `mode`, `sort_by`, `page`, `page_size`, `planner_backend` | Expose new controls via API while staying backward compatible.
+
+### Frontend Revision Scope
+
+| File | Planned Function Additions/Changes | Why |
+|---|---|---|
+| `frontend/gradio_app.py` | Add mode selector, sort selector, pagination controls, snippet/expand toggle, facets panel | Search-engine interaction model.
+| `frontend/gradio_app.py` | Keep visible plan button and editable planned query field | Preserve current flow while adding search controls.
+| `frontend/gradio_app.py` | Facet click handler to append facet to query and auto-run | Matches confirmed user interaction.
+
+### LLM / Non-LLM Planner-Response Strategy
+
+#### Non-LLM path (default)
+- Planner backend: deterministic keyword + rules (`retrieval/query_planner.py`).
+- Retrieval mode: hybrid ranking without generation.
+- Output: chunk snippets + score breakdown only.
+
+#### LLM path (optional toggle)
+- Add new module `planning/llm_planner.py`:
+  - `generate_query_plan(user_query, context, constraints)`
+  - `generate_conditional_query(plan)`
+- Add new module `synthesis/answer_builder.py`:
+  - `build_cited_answer(query, top_chunks, style)`
+  - strict citation to chunk IDs only.
+- Add runtime adapters in `llm_chain/` for local model providers:
+  - Ollama (`http://localhost:11434`) as first local backend.
+  - Optional llama.cpp/OpenAI-compatible local endpoints.
+- Keep flags in settings/env:
+  - `PLANNER_BACKEND=rules|local_llm`
+  - `RESPONSE_BACKEND=none|local_llm`
+  - Default: `rules` + `none`.
+
+### Recommended Local Models
+- Query planning (cheap/fast): `qwen2.5:7b-instruct` or `llama3.1:8b-instruct`.
+- Response synthesis (quality): `qwen2.5:14b-instruct` or `llama3.1:70b` (if hardware supports).
+- Keep citation grounding strict: answer must only use retrieved chunk text.
+
+### Validation Additions
+- Add tests:
+  - `tests/test_retriever_hybrid.py` (score fusion + ranking order)
+  - `tests/test_pagination_sort.py` (page boundaries + sort stability)
+  - `tests/test_facet_generation.py` (facet counts + selections)
+  - `tests/test_llm_toggle_contract.py` (rules vs local_llm backend behavior)
+
+### Phased Execution (Revision)
+1. Backend contract + hybrid ranking + pagination/sort.
+2. Facets + query append behavior + service/API wiring.
+3. UI controls and analyst-oriented results layout.
+4. Optional local LLM planner/synthesis toggles (off by default).
+5. Regression tests and demo script updates.
+
+### Small-Hardware Ollama Hosting Plan (Demo Mode)
+
+#### Goal
+Run LLM-assisted query planning locally on small hardware without blocking retrieval responsiveness.
+
+#### Deployment Recommendation
+- Run Ollama on host CPU (not in the same process as Gradio/FastAPI).
+- Keep retrieval/indexing path non-LLM by default.
+- Use Ollama only for planner enhancement unless response synthesis is explicitly toggled on.
+
+#### Runtime Profile (Low Resource)
+- Environment:
+  - `OLLAMA_CONTEXT_LENGTH=2048`
+  - `OLLAMA_NUM_PARALLEL=1`
+  - `OLLAMA_MAX_LOADED_MODELS=1`
+  - `OLLAMA_KEEP_ALIVE=30m`
+- LLM request defaults:
+  - `num_ctx=2048`
+  - `num_predict=96..160`
+  - `temperature=0.1..0.3`
+  - `stream=false`
+
+#### Model Tiers
+- Tier A (smallest/fastest): `qwen3:0.6b` for planner-only demos.
+- Tier B (balanced): `qwen3:1.7b` for better query rewrites on CPU.
+- Keep response generation off by default on small hardware.
+
+#### Integration Contract
+- Add config/env wiring:
+  - `PLANNER_BACKEND=rules|local_llm`
+  - `RESPONSE_BACKEND=none|local_llm`
+  - `OLLAMA_BASE_URL=http://127.0.0.1:11434`
+  - `OLLAMA_MODEL_PLANNER=qwen3:0.6b`
+  - `OLLAMA_MODEL_RESPONSE=qwen3:1.7b`
+- API/UI behavior:
+  - Default: `PLANNER_BACKEND=rules`, `RESPONSE_BACKEND=none`
+  - Optional demo toggle: switch planner to `local_llm` at runtime.
+
+#### Hosting Options
+- Host-native Ollama (recommended): lowest overhead and simplest for demo.
+- Containerized Ollama (optional):
+  - `docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama`
+
+#### Demo Startup Sequence
+1. Start Ollama service and warm model (`qwen3:0.6b`).
+2. Start enterprise app/API in retrieval-first mode.
+3. Enable `local_llm` planner toggle only when demonstrating smarter query generation.
+4. Keep answer synthesis toggle off unless latency is acceptable.
+
+#### Guardrails
+- Hard timeout for planner requests (e.g., 12s).
+- On timeout/error: automatic fallback to rules planner.
+- Enforce chunk-grounded responses if response mode is enabled.

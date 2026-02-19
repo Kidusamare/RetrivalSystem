@@ -1,0 +1,25 @@
+dataset: semiconductor_v1
+k: 10
+fixtures:
+  - doc_id: semi-wafer-01
+    file_name: wafer_fabrication.md
+    text: |
+      Semiconductor wafer fabrication uses silicon substrates, dielectric layers,
+      and interconnect reliability tests across process nodes.
+  - doc_id: semi-interconnect-02
+    file_name: interconnect_stack.md
+    text: |
+      Conductive interconnect stacks rely on dielectric barriers, via integrity,
+      and metallization reliability for advanced packaging.
+  - doc_id: semi-package-03
+    file_name: encapsulation_package.md
+    text: |
+      Semiconductor encapsulation and package reliability depend on passivation,
+      molding compounds, and thermal stress controls.
+queries:
+  - query: semiconductor dielectric interconnect reliability
+    relevant_doc_ids: [semi-wafer-01, semi-interconnect-02, semi-package-03]
+  - query: wafer substrate and conductive via stack
+    relevant_doc_ids: [semi-wafer-01, semi-interconnect-02, semi-package-03]
+  - query: passivation encapsulation package stress
+    relevant_doc_ids: [semi-wafer-01, semi-interconnect-02, semi-package-03]

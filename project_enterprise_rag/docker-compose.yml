@@ -1,0 +1,45 @@
+services:
+  api:
+    build: .
+    image: strategic-ip-rag:local
+    container_name: strategic-ip-api
+    command: ["uvicorn", "api_app:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      API_KEYS: ${API_KEYS:-dev-local-key}
+      OPS_API_KEY: ${OPS_API_KEY:-dev-local-key}
+      OPS_API_BASE_URL: http://api:8000
+      WORKER_NAME: worker-1
+      PATENTSVIEW_API_KEY: ${PATENTSVIEW_API_KEY:-}
+      PATENTSVIEW_API_URL: ${PATENTSVIEW_API_URL:-https://search.patentsview.org/api/v1/patent/}
+      PATENTSVIEW_TIMEOUT_SECONDS: ${PATENTSVIEW_TIMEOUT_SECONDS:-45}
+      PATENTSVIEW_RETRIES: ${PATENTSVIEW_RETRIES:-3}
+      INGESTION_DEEP_MEMORY_ENABLED: ${INGESTION_DEEP_MEMORY_ENABLED:-false}
+      DEEP_MEMORY_BUFFER_SIZE: ${DEEP_MEMORY_BUFFER_SIZE:-1}
+      DEEP_MEMORY_BREAKPOINT_PERCENTILE: ${DEEP_MEMORY_BREAKPOINT_PERCENTILE:-95}
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
+  worker:
+    image: strategic-ip-rag:local
+    container_name: strategic-ip-worker
+    command: ["python", "-m", "jobs.worker"]
+    environment:
+      API_KEYS: ${API_KEYS:-dev-local-key}
+      OPS_API_KEY: ${OPS_API_KEY:-dev-local-key}
+      OPS_API_BASE_URL: http://api:8000
+      WORKER_NAME: worker-1
+      PATENTSVIEW_API_KEY: ${PATENTSVIEW_API_KEY:-}
+      PATENTSVIEW_API_URL: ${PATENTSVIEW_API_URL:-https://search.patentsview.org/api/v1/patent/}
+      PATENTSVIEW_TIMEOUT_SECONDS: ${PATENTSVIEW_TIMEOUT_SECONDS:-45}
+      PATENTSVIEW_RETRIES: ${PATENTSVIEW_RETRIES:-3}
+      INGESTION_DEEP_MEMORY_ENABLED: ${INGESTION_DEEP_MEMORY_ENABLED:-false}
+      DEEP_MEMORY_BUFFER_SIZE: ${DEEP_MEMORY_BUFFER_SIZE:-1}
+      DEEP_MEMORY_BREAKPOINT_PERCENTILE: ${DEEP_MEMORY_BREAKPOINT_PERCENTILE:-95}
+    depends_on:
+      - api
+    volumes:
+      - .:/app
+    restart: unless-stopped

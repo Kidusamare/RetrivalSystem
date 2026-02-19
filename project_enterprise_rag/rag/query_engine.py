@@ -3,9 +3,10 @@ from typing import Dict, List
 
 from config.settings import get_settings
 from retrieval.retriever import retrieve_chunks
+from services.index_state import get_runtime_index_dir
 from services.rag_service import search_chunks_service
 
-DEFAULT_PERSIST_DIR = str(get_settings().storage_dir)
+DEFAULT_PERSIST_DIR = str(get_runtime_index_dir(get_settings()))
 DEFAULT_TOP_K = get_settings().top_k
 
 

@@ -1,20 +1,41 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional, Sequence
 
-from llama_index.core import Settings, StorageContext, load_index_from_storage
-
-from ingestion.index_builder import get_local_embed_model
-
-
-def apply_active_filters(planned_query: str, active_filters: Optional[Iterable[str]]) -> str:
-    filters = [item.strip() for item in (active_filters or []) if item and item.strip()]
-    if not filters:
-        return planned_query.strip()
-    return f"{planned_query.strip()} {' '.join(filters)}".strip()
+from retrieval.scoring import (
+    apply_active_filters,
+    compute_keyword_overlap,
+    fuse_scores,
+    paginate_records,
+    parse_active_filters,
+    sort_chunk_records,
+)
 
 
-def _resolve_source(metadata: Dict) -> str:
-    return metadata.get("file_name") or metadata.get("filename") or metadata.get("source") or "Unknown"
+def search_chunks(
+    persist_dir: Path,
+    planned_query: str,
+    query_terms: Optional[Sequence[str]] = None,
+    active_filters: Optional[Iterable[str]] = None,
+    mode: str = "hybrid",
+    sort_by: str = "relevance",
+    page: int = 1,
+    page_size: int = 10,
+) -> Dict:
+    # Import lazily so unit tests for scoring can run without llama_index installed.
+    from retrieval.runtime_engine import search_chunks as runtime_search_chunks
+
+    return runtime_search_chunks(
+        persist_dir=persist_dir,
+        planned_query=planned_query,
+        query_terms=query_terms,
+        active_filters=active_filters,
+        mode=mode,
+        sort_by=sort_by,
+        page=page,
+        page_size=page_size,
+    )
 
 
 def retrieve_chunks(
@@ -23,31 +44,25 @@ def retrieve_chunks(
     active_filters: Optional[Iterable[str]] = None,
     top_k: int = 5,
 ) -> List[Dict]:
-    Settings.embed_model = get_local_embed_model()
-    storage_context = StorageContext.from_defaults(persist_dir=str(persist_dir))
-    index = load_index_from_storage(storage_context)
+    result = search_chunks(
+        persist_dir=persist_dir,
+        planned_query=planned_query,
+        active_filters=active_filters,
+        mode="hybrid",
+        sort_by="relevance",
+        page=1,
+        page_size=max(1, int(top_k)),
+    )
+    return result["chunks"]
 
-    query_text = apply_active_filters(planned_query=planned_query, active_filters=active_filters)
-    retriever = index.as_retriever(similarity_top_k=top_k)
-    nodes = retriever.retrieve(query_text)
 
-    chunks: List[Dict] = []
-    for rank, node_with_score in enumerate(nodes, start=1):
-        node = getattr(node_with_score, "node", node_with_score)
-        metadata = dict(getattr(node, "metadata", {}) or {})
-        score = getattr(node_with_score, "score", None)
-
-        chunks.append(
-            {
-                "rank": rank,
-                "score": round(float(score), 4) if score is not None else None,
-                "source": _resolve_source(metadata),
-                "page": metadata.get("page") or metadata.get("page_label") or "N/A",
-                "doc_id": metadata.get("doc_id", "unknown"),
-                "chunk_id": metadata.get("chunk_id", "unknown"),
-                "text": node.get_content(),
-                "metadata": metadata,
-            }
-        )
-    return chunks
-
+__all__ = [
+    "apply_active_filters",
+    "compute_keyword_overlap",
+    "fuse_scores",
+    "paginate_records",
+    "parse_active_filters",
+    "retrieve_chunks",
+    "search_chunks",
+    "sort_chunk_records",
+]

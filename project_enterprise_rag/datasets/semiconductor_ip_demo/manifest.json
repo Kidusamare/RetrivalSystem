@@ -1,0 +1,29 @@
+{
+  "source": "hf-big-patent",
+  "query_seed": "semiconductor wafer doped dielectric interconnect encapsulation",
+  "query_keywords": [
+    "semiconductor",
+    "wafer",
+    "doped",
+    "dielectric",
+    "interconnect",
+    "encapsulation"
+  ],
+  "start_date": "2012-01-01",
+  "max_records_requested": 80,
+  "records_downloaded": 80,
+  "scanned_pages": 1,
+  "scanned_rows": 100,
+  "pdf_downloaded": 0,
+  "output_dir": "/home/kidus/Documents/Strategic IP initiatives/RetrivalSystem/project_enterprise_rag/datasets/semiconductor_ip_demo",
+  "filters": [
+    "Semiconductor Wafer",
+    "Doped Regions (N-type/P-type)",
+    "Insulating Layers (Dielectric)",
+    "Conductive Interconnects",
+    "Encapsulation"
+  ],
+  "hf_dataset": "NortheasternUniversity/big_patent",
+  "hf_config": "h",
+  "hf_split": "train"
+}

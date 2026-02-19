@@ -1,7 +1,12 @@
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Sequence
 
 from llama_index.core import Document, SimpleDirectoryReader
+
+
+def _to_utc_iso(ts_seconds: float) -> str:
+    return datetime.fromtimestamp(ts_seconds, tz=timezone.utc).isoformat()
 
 
 def validate_supported_file(path: str, allowed_extensions: Sequence[str]) -> Path:
@@ -21,13 +26,16 @@ def load_documents_from_files(
 
     for path in file_paths:
         file_path = validate_supported_file(path, allowed_extensions)
+        file_stat = file_path.stat()
         loaded = SimpleDirectoryReader(input_files=[str(file_path)]).load_data()
 
         for doc in loaded:
             metadata = dict(doc.metadata or {})
             metadata["source_path"] = str(file_path)
             metadata["file_name"] = file_path.name
+            metadata["source_modified_at"] = _to_utc_iso(file_stat.st_mtime)
+            metadata["source_modified_ts"] = int(file_stat.st_mtime)
+            metadata["source_created_ts"] = int(file_stat.st_ctime)
             documents.append(Document(text=doc.text, metadata=metadata))
 
     return documents
-

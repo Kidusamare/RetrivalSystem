@@ -1,0 +1,9 @@
+{
+  "filters": [
+    "Semiconductor Wafer",
+    "Doped Regions (N-type/P-type)",
+    "Insulating Layers (Dielectric)",
+    "Conductive Interconnects",
+    "Encapsulation"
+  ]
+}

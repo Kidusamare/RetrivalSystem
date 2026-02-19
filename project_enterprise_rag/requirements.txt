@@ -6,5 +6,11 @@ scikit-learn
 numpy
 python-dotenv
 groq
+requests
+sqlalchemy>=2.0.0
+alembic>=1.13.0
+PyYAML>=6.0.0
+mypy
+ruff
 llama-index==0.10.40
 llama-index-embeddings-huggingface

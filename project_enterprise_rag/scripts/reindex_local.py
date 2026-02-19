@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import shutil
 import sys
 from pathlib import Path
 
@@ -8,7 +9,6 @@ if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
 
 from config.settings import get_settings, resolve_paths
-from services.rag_service import ingest_files_service
 
 
 def _clear_index_files(storage_dir: Path) -> None:
@@ -22,6 +22,13 @@ def _clear_index_files(storage_dir: Path) -> None:
         target = storage_dir / name
         if target.exists():
             target.unlink()
+
+
+def _clear_index_dirs(active_dir: Path, staging_root: Path) -> None:
+    if active_dir.exists():
+        shutil.rmtree(active_dir)
+    if staging_root.exists():
+        shutil.rmtree(staging_root)
 
 
 def main() -> None:
@@ -38,6 +45,7 @@ def main() -> None:
     settings = resolve_paths(get_settings())
     if args.clear:
         _clear_index_files(settings.storage_dir)
+        _clear_index_dirs(settings.index_active_dir, settings.index_staging_root)
     if args.clear_registry and settings.registry_path.exists():
         settings.registry_path.unlink()
         resolve_paths(settings)
@@ -45,6 +53,8 @@ def main() -> None:
     if not args.files:
         print("No files provided. Nothing indexed.")
         return
+
+    from services.rag_service import ingest_files_service
 
     result = ingest_files_service(args.files)
     print(result["message"])

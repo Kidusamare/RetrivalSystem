@@ -1,0 +1,1 @@
+"""PatentsView connector package."""

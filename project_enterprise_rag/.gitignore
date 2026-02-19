@@ -10,8 +10,14 @@ venv/
 
 # data / generated
 *.db
+*.db-shm
+*.db-wal
 .vector_index/
 index.json
+storage/index_active/
+storage/index_staging/
+storage/worker_heartbeat.json
+storage/file_registry.json
 
 # VSCode
 .vscode/
