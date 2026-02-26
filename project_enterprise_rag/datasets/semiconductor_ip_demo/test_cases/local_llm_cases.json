@@ -1,0 +1,82 @@
+{
+  "description": "Local-LLM planner/response smoke tests for hardware-focused corpus",
+  "cases": [
+    {
+      "id": "gpu_hbm_bottleneck",
+      "plan_request": {
+        "user_query": "How do I reduce GPU inference stalls caused by HBM bottlenecks and tensor core underutilization?",
+        "mode": "hybrid",
+        "planner_backend": "local_llm",
+        "include_terms": [
+          "HBM3E",
+          "tensor core",
+          "memory-controller"
+        ],
+        "exclude_terms": [
+          "audio codec"
+        ]
+      },
+      "search_request": {
+        "user_query": "How do I reduce GPU inference stalls caused by HBM bottlenecks and tensor core underutilization?",
+        "mode": "hybrid",
+        "planner_backend": "local_llm",
+        "response_backend": "local_llm",
+        "page": 1,
+        "page_size": 10
+      },
+      "expected_signals": {
+        "planned_query_contains_any": [
+          "HBM3E",
+          "tensor",
+          "GPU",
+          "memory"
+        ],
+        "response_mentions_any": [
+          "tensor core",
+          "memory",
+          "bandwidth",
+          "scheduler"
+        ]
+      }
+    },
+    {
+      "id": "motherboard_pcie_cxl_design",
+      "plan_request": {
+        "user_query": "Design a motherboard topology for multi-GPU plus CXL memory with stable PCIe links and strong VRM behavior.",
+        "mode": "hybrid",
+        "planner_backend": "local_llm",
+        "include_terms": [
+          "PCIe",
+          "CXL",
+          "VRM",
+          "lane bifurcation"
+        ],
+        "exclude_terms": [
+          "mobile phone"
+        ]
+      },
+      "search_request": {
+        "user_query": "Design a motherboard topology for multi-GPU plus CXL memory with stable PCIe links and strong VRM behavior.",
+        "mode": "hybrid",
+        "planner_backend": "local_llm",
+        "response_backend": "local_llm",
+        "page": 1,
+        "page_size": 10
+      },
+      "expected_signals": {
+        "planned_query_contains_any": [
+          "motherboard",
+          "PCIe",
+          "CXL",
+          "VRM"
+        ],
+        "response_mentions_any": [
+          "lane",
+          "retimer",
+          "power delivery",
+          "telemetry"
+        ]
+      }
+    }
+  ]
+}

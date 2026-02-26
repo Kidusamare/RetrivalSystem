@@ -1,9 +1,12 @@
 {
   "filters": [
-    "Semiconductor Wafer",
-    "Doped Regions (N-type/P-type)",
-    "Insulating Layers (Dielectric)",
-    "Conductive Interconnects",
-    "Encapsulation"
+    "Semiconductor Process Nodes",
+    "Advanced Packaging and Chiplets",
+    "GPU Architecture and Tensor Cores",
+    "TPU Systolic Arrays",
+    "Motherboard PCIe/CXL Topology",
+    "Power, Thermal, and Reliability",
+    "Firmware Security and Bring-up",
+    "Benchmarking and Runtime Optimization"
   ]
 }

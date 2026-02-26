@@ -127,6 +127,40 @@ python -m ops.cli list-jobs --status running --limit 20
 python -m ops.cli evaluate --dataset evaluation/gold/semiconductor_v1.yaml --min-precision 0.9
 ```
 
+## Hardware Dataset (Refreshed)
+- Replaced legacy `BIGPATENT` docs with a hardware-focused corpus:
+  - `datasets/semiconductor_ip_demo/docs` (64 docs)
+  - coverage: semiconductors, motherboards, GPUs, TPUs, interconnect, firmware, thermal/reliability
+- Metadata and filters:
+  - `datasets/semiconductor_ip_demo/manifest.json`
+  - `datasets/semiconductor_ip_demo/raw/records.json`
+  - `datasets/semiconductor_ip_demo/raw/curated_filter_options.json`
+- Local-LLM test cases:
+  - `datasets/semiconductor_ip_demo/test_cases/local_llm_cases.json`
+
+Ingest the refreshed corpus:
+```bash
+cd project_enterprise_rag
+python -m ops.cli ingest-files $(find "$(pwd)/datasets/semiconductor_ip_demo/docs" -type f -name '*.md' | tr '\n' ' ') --deep-memory
+```
+
+Enable local planner + response generation (docker-compose runtime):
+```bash
+cd project_enterprise_rag
+export PLANNER_BACKEND=local_llm
+export RESPONSE_BACKEND=local_llm
+export OLLAMA_BASE_URL=http://host.docker.internal:11434
+export OLLAMA_MODEL_PLANNER=qwen3:1.7b
+export OLLAMA_MODEL_RESPONSE=qwen3:1.7b
+docker compose up -d api worker
+```
+
+Run the two provided local-LLM smoke cases:
+```bash
+cd project_enterprise_rag
+python scripts/run_local_llm_cases.py --cases datasets/semiconductor_ip_demo/test_cases/local_llm_cases.json
+```
+
 ## Evaluation
 Gold set file:
 - `evaluation/gold/semiconductor_v1.yaml`

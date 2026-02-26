@@ -9,6 +9,11 @@ services:
       OPS_API_KEY: ${OPS_API_KEY:-dev-local-key}
       OPS_API_BASE_URL: http://api:8000
       WORKER_NAME: worker-1
+      PLANNER_BACKEND: ${PLANNER_BACKEND:-rules}
+      RESPONSE_BACKEND: ${RESPONSE_BACKEND:-none}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL_PLANNER: ${OLLAMA_MODEL_PLANNER:-qwen3:1.7b}
+      OLLAMA_MODEL_RESPONSE: ${OLLAMA_MODEL_RESPONSE:-qwen3:1.7b}
       PATENTSVIEW_API_KEY: ${PATENTSVIEW_API_KEY:-}
       PATENTSVIEW_API_URL: ${PATENTSVIEW_API_URL:-https://search.patentsview.org/api/v1/patent/}
       PATENTSVIEW_TIMEOUT_SECONDS: ${PATENTSVIEW_TIMEOUT_SECONDS:-45}
@@ -16,6 +21,8 @@ services:
       INGESTION_DEEP_MEMORY_ENABLED: ${INGESTION_DEEP_MEMORY_ENABLED:-false}
       DEEP_MEMORY_BUFFER_SIZE: ${DEEP_MEMORY_BUFFER_SIZE:-1}
       DEEP_MEMORY_BREAKPOINT_PERCENTILE: ${DEEP_MEMORY_BREAKPOINT_PERCENTILE:-95}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "8000:8000"
     volumes:
@@ -31,6 +38,11 @@ services:
       OPS_API_KEY: ${OPS_API_KEY:-dev-local-key}
       OPS_API_BASE_URL: http://api:8000
       WORKER_NAME: worker-1
+      PLANNER_BACKEND: ${PLANNER_BACKEND:-rules}
+      RESPONSE_BACKEND: ${RESPONSE_BACKEND:-none}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL_PLANNER: ${OLLAMA_MODEL_PLANNER:-qwen3:1.7b}
+      OLLAMA_MODEL_RESPONSE: ${OLLAMA_MODEL_RESPONSE:-qwen3:1.7b}
       PATENTSVIEW_API_KEY: ${PATENTSVIEW_API_KEY:-}
       PATENTSVIEW_API_URL: ${PATENTSVIEW_API_URL:-https://search.patentsview.org/api/v1/patent/}
       PATENTSVIEW_TIMEOUT_SECONDS: ${PATENTSVIEW_TIMEOUT_SECONDS:-45}
@@ -38,6 +50,8 @@ services:
       INGESTION_DEEP_MEMORY_ENABLED: ${INGESTION_DEEP_MEMORY_ENABLED:-false}
       DEEP_MEMORY_BUFFER_SIZE: ${DEEP_MEMORY_BUFFER_SIZE:-1}
       DEEP_MEMORY_BREAKPOINT_PERCENTILE: ${DEEP_MEMORY_BREAKPOINT_PERCENTILE:-95}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - api
     volumes:
